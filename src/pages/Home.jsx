@@ -29,7 +29,7 @@ const Home = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3000/pay/initialize",
+        "https://fastbuy-backend.onrender.com/pay/initialize",
         {
           productId: id,
         },
