@@ -27,7 +27,7 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/register",
+        "https://fastbuy-backend.onrender.com/auth/register",
         formData,
       );
 
