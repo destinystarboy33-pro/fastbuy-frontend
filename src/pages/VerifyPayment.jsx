@@ -1,19 +1,28 @@
 import axios from "axios"
 import { useSearchParams, NavLink } from "react-router-dom"
 import { useEffect, useState } from "react"
+import Cookies from "js-cookie"
 
 const VerifyPayment = () => {
     const [searchParams] = useSearchParams()
     const [status, setStatus] = useState("loading")
 
     const reference = searchParams.get("reference")
+      const token = Cookies.get("token");
 
     console.log(reference)
 
     useEffect(() =>{
           const confirmPayment = async() =>{
         try {
-          const payment = await  axios.get(`https://fastbuy-backend.onrender.com/pay/verify/${reference}`)
+          const payment = await  axios.get(`https://fastbuy-backend.onrender.com/pay/verify/${reference}`,
+           {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+          )
 
           console.log(payment)
           setStatus(payment.data.data.status)
@@ -24,7 +33,7 @@ const VerifyPayment = () => {
 
     confirmPayment()
 
-    },[reference])
+    },[reference, token])
 
   
   return (
